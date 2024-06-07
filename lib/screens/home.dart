@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:kiosk/widgets/carousel.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
-class ControlScreen extends StatefulWidget {
-  const ControlScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return _ControlScreenState();
+    return _HomeScreenState();
   }
 }
 
-class _ControlScreenState extends State<ControlScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     setState(() {
@@ -20,14 +20,12 @@ class _ControlScreenState extends State<ControlScreen> {
 
     return Scaffold(
       appBar: AppBar(),
-      body: Column(
+      body: const Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // const Icon(Icons.arrow_upward, size: 50), // volume btn guide
-          // const SizedBox(height: 20),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0),
             child: Carousel(),
           ),
         ],

@@ -30,7 +30,7 @@ class _CarouselState extends State<Carousel> {
   var _showingQR = false;
 
   final _qrImage = QrImageView(
-    data: 'https://linktr.ee/rodmastria',
+    data: 'https://www.linkedin.com/in/rodmastria/',
     version: QrVersions.auto,
     size: 300.0,
     backgroundColor: Colors.white,
@@ -40,27 +40,8 @@ class _CarouselState extends State<Carousel> {
     _showingQR = !_showingQR;
   }
 
-  Future<void> _openTV(String channel) async {
-    final Uri launchUri = Uri(
-      scheme: 'app',
-      path: 'com.google.android.youtube',
-    );
-    await launchUrl(launchUri);
-  }
-
-  bool _hasTVsupport = false;
-  @override
-  void initState() {
-    super.initState();
-    canLaunchUrl(Uri(scheme: 'app', path: 'com.google.android.youtube'))
-        .then((result) => setState(() {
-              _hasTVsupport = result;
-            }));
-  }
-
   @override
   Widget build(BuildContext context) {
-    final lastPage = sliderNotes.length - 1;
     return Column(
       children: [
         CarouselSlider(
@@ -116,8 +97,7 @@ class _CarouselState extends State<Carousel> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                (_showingQR &&
-                                        sliderNotes.indexOf(i) == lastPage)
+                                (_showingQR)
                                     ? _qrImage
                                     : Text(
                                         i,
@@ -131,27 +111,6 @@ class _CarouselState extends State<Carousel> {
                               ],
                             ),
                           ),
-
-                          // (sliderNotes.indexOf(i) == 1)
-                          //     ? Padding(
-                          //         padding: const EdgeInsets.all(8.0),
-                          //         child: OutlinedButton.icon(
-                          //           onPressed: () {
-                          //             _hasTVsupport
-                          //                 ? setState(() {
-                          //                     _openTV('chillvibes');
-                          //                   })
-                          //                 : null;
-                          //           },
-                          //           style: navigationStyle,
-                          //           label: _hasTVsupport
-                          //               ? const Text('Open YouTube TV')
-                          //               : const Text('No TV'),
-                          //           icon: const Icon(
-                          //               Icons.live_tv_outlined),
-                          //         ),
-                          //       )
-                          //     : const SizedBox(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -160,15 +119,11 @@ class _CarouselState extends State<Carousel> {
                                   'Slide ${sliderNotes.indexOf(i) + 1} of ${sliderNotes.length}',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 22,
                                       fontStyle: FontStyle.normal,
                                       color: Theme.of(context)
                                           .colorScheme
                                           .onBackground)),
-                              // (_showingQR &&
-                              //         sliderNotes.indexOf(i) == lastPage)
-                              //     ? _qrImageTiny
-                              //     : const SizedBox(width: 150)
                               const SizedBox(width: 150)
                             ],
                           ),
@@ -193,13 +148,13 @@ class _CarouselState extends State<Carousel> {
             ),
             const SizedBox(width: 60),
             TextButton(
-              onPressed: () {
-                buttonController.animateToPage(lastPage);
+              onLongPress: () {
                 setState(() {
                   _flipQRstate();
                 });
               },
-              child: Text('Enjoy your trip!\n-Rod',
+              onPressed: () {},
+              child: Text('Enjoy your trip!',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 18,
