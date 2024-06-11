@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:kiosk/data/data.dart';
+import 'package:kiosk/widgets/climate_control.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class Carousel extends StatefulWidget {
   const Carousel({super.key});
@@ -14,7 +14,7 @@ class Carousel extends StatefulWidget {
 }
 
 class _CarouselState extends State<Carousel> {
-  final CarouselController buttonController = CarouselController();
+  final CarouselController slideController = CarouselController();
 
   final ButtonStyle navigationStyle = OutlinedButton.styleFrom(
     padding: const EdgeInsets.all(8),
@@ -46,7 +46,7 @@ class _CarouselState extends State<Carousel> {
       children: [
         CarouselSlider(
           options: CarouselOptions(height: 500.0),
-          carouselController: buttonController,
+          carouselController: slideController,
           items: sliderNotes.map((i) {
             return Builder(
               builder: (BuildContext context) {
@@ -80,7 +80,7 @@ class _CarouselState extends State<Carousel> {
                                       fontStyle: FontStyle.italic,
                                       color: Theme.of(context)
                                           .colorScheme
-                                          .onBackground),
+                                          .onSurface),
                                   textAlign: TextAlign.center,
                                 ),
                                 (sliderNotes.indexOf(i) == 0)
@@ -105,9 +105,16 @@ class _CarouselState extends State<Carousel> {
                                             fontSize: 34,
                                             color: Theme.of(context)
                                                 .colorScheme
-                                                .onBackground),
+                                                .onSurface),
                                         textAlign: TextAlign.center,
                                       ),
+                                if (!_showingQR && sliderNotes.indexOf(i) == 1)
+                                  const Column(
+                                    children: [
+                                      SizedBox(height: 16),
+                                      ClimateControl()
+                                    ],
+                                  )
                               ],
                             ),
                           ),
@@ -123,7 +130,7 @@ class _CarouselState extends State<Carousel> {
                                       fontStyle: FontStyle.normal,
                                       color: Theme.of(context)
                                           .colorScheme
-                                          .onBackground)),
+                                          .onSurface)),
                               const SizedBox(width: 150)
                             ],
                           ),
@@ -141,7 +148,7 @@ class _CarouselState extends State<Carousel> {
           children: [
             OutlinedButton.icon(
               onPressed: () =>
-                  buttonController.previousPage(curve: Curves.linear),
+                  slideController.previousPage(curve: Curves.linear),
               style: navigationStyle,
               label: const Text('back'),
               icon: const Icon(Icons.arrow_circle_left_outlined),
@@ -157,13 +164,15 @@ class _CarouselState extends State<Carousel> {
               child: Text('Enjoy your trip!',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 20,
                       fontStyle: FontStyle.italic,
-                      color: Theme.of(context).colorScheme.onBackground)),
+                      decoration: TextDecoration.underline,
+                      decorationColor: Colors.white,
+                      color: Theme.of(context).colorScheme.onSurface)),
             ),
             const SizedBox(width: 60),
             OutlinedButton.icon(
-              onPressed: () => buttonController.nextPage(curve: Curves.linear),
+              onPressed: () => slideController.nextPage(curve: Curves.linear),
               style: navigationStyle,
               label: const Text('next'),
               icon: const Icon(Icons.arrow_circle_right_outlined),

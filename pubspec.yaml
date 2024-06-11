@@ -41,6 +41,10 @@ dependencies:
   wakelock_plus: ^1.1.4
   qr_flutter: ^4.1.0
   url_launcher: ^6.2.2
+  firebase_core: ^2.27.0
+  firebase_auth: ^4.17.8
+  cloud_firestore: ^4.17.5
+  one_clock: ^2.0.1
 
 dev_dependencies:
   flutter_test:
