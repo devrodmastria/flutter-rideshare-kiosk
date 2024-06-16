@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:kiosk/screens/guest_request.dart';
+import 'package:kiosk/screens/driver_dashboard.dart';
 import 'firebase_options.dart';
 
 final theme = ThemeData(
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
             }
             if (snapshot.hasData) {
               if (snapshot.data!.email!.contains('driver')) {
-                return const GuestRequest();
+                return const DriverDashboard();
               } else {
                 return const HomeScreen();
               }

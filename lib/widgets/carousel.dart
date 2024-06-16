@@ -47,7 +47,7 @@ class _CarouselState extends State<Carousel> {
         CarouselSlider(
           options: CarouselOptions(height: 500.0),
           carouselController: slideController,
-          items: sliderNotes.map((i) {
+          items: sliderNotes.map((slideActive) {
             return Builder(
               builder: (BuildContext context) {
                 return Container(
@@ -69,25 +69,27 @@ class _CarouselState extends State<Carousel> {
                         children: [
                           const SizedBox(height: 50),
                           Container(
-                            color: Colors.lightBlue.shade400,
+                            color: Colors.lightGreen.shade400,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  sliderHeaders[sliderNotes.indexOf(i)],
+                                  sliderHeaders[
+                                      sliderNotes.indexOf(slideActive)],
                                   style: TextStyle(
                                       fontSize: 28,
                                       fontStyle: FontStyle.italic,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSurface),
+                                      color: Colors.grey.shade800),
                                   textAlign: TextAlign.center,
                                 ),
-                                (sliderNotes.indexOf(i) == 0)
-                                    ? const Padding(
-                                        padding: EdgeInsets.symmetric(
+                                (sliderNotes.indexOf(slideActive) == 0)
+                                    ? Padding(
+                                        padding: const EdgeInsets.symmetric(
                                             horizontal: 16.0),
-                                        child: Icon(Icons.waving_hand_outlined),
+                                        child: Icon(
+                                          Icons.waving_hand_outlined,
+                                          color: Colors.grey.shade800,
+                                        ),
                                       )
                                     : const SizedBox(),
                               ],
@@ -100,7 +102,7 @@ class _CarouselState extends State<Carousel> {
                                 (_showingQR)
                                     ? _qrImage
                                     : Text(
-                                        i,
+                                        slideActive,
                                         style: TextStyle(
                                             fontSize: 34,
                                             color: Theme.of(context)
@@ -108,7 +110,8 @@ class _CarouselState extends State<Carousel> {
                                                 .onSurface),
                                         textAlign: TextAlign.center,
                                       ),
-                                if (!_showingQR && sliderNotes.indexOf(i) == 1)
+                                if (!_showingQR &&
+                                    sliderNotes.indexOf(slideActive) == 1)
                                   const Column(
                                     children: [
                                       SizedBox(height: 16),
@@ -123,7 +126,7 @@ class _CarouselState extends State<Carousel> {
                             children: [
                               const SizedBox(width: 150),
                               Text(
-                                  'Slide ${sliderNotes.indexOf(i) + 1} of ${sliderNotes.length}',
+                                  'Slide ${sliderNotes.indexOf(slideActive) + 1} of ${sliderNotes.length}',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 22,

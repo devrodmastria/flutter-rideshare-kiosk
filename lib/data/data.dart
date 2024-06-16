@@ -1,13 +1,13 @@
 const List<String> sliderHeaders = [
   'Hello!',
   'Stay Connected & Comfortable',
-  'About Me',
+  'About',
 ];
 
 const List<String> sliderNotes = [
-  'Welcome to your Lyft Kiosk\n\nSwipe to learn more',
-  'Phone charger available under tablet\n\nClimate control:',
-  'Made by Rod\n\nFreelance Software Developer\n\nMobile & Web Apps',
+  'Welcome to your Lyft Kiosk\n\nSwipe to customize your trip',
+  'Climate Control\n\nClick below to change settings',
+  'Made by Rod\n\nMobile & Web Developer',
 ];
 
 enum AirStatus { cold, heat, off }

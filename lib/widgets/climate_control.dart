@@ -62,6 +62,20 @@ class _ClimateControlState extends State<ClimateControl> {
     ),
   );
 
+  final ButtonStyle airSpeedBtnStyleOff = OutlinedButton.styleFrom(
+    padding: const EdgeInsets.all(16),
+    foregroundColor: Colors.black54,
+    backgroundColor: Colors.white70,
+    textStyle:
+        const TextStyle(fontSize: 28, decoration: TextDecoration.lineThrough),
+    shape: RoundedRectangleBorder(
+      side: BorderSide(width: 4.0, color: Colors.blue.shade800),
+      borderRadius: const BorderRadius.all(
+        Radius.circular(10),
+      ),
+    ),
+  );
+
   var _airStatus = AirStatus.cold.toString();
   var _fanSpeed = 1;
 
@@ -77,14 +91,12 @@ class _ClimateControlState extends State<ClimateControl> {
                     : 1;
 
     FirebaseFirestore.instance.collection('ride').doc('climate_status').update({
-      //firestore will create auto id for this map
       'speed': _fanSpeed,
-      'createdAt': Timestamp.now().millisecondsSinceEpoch,
-      // 'userId': userInfo.uid,
+      'fanCreatedAt': Timestamp.now().millisecondsSinceEpoch,
     });
   }
 
-  void _sendPowerModeRequest() async {
+  void _sendTemperatureRequest() async {
     // final userInfo = FirebaseAuth.instance.currentUser!;
 
     _airStatus = _airStatus == AirStatus.cold.toString()
@@ -103,11 +115,8 @@ class _ClimateControlState extends State<ClimateControl> {
     // final climateStatus = rideMetaInfo.data()!['air'];
 
     FirebaseFirestore.instance.collection('ride').doc('climate_status').update({
-      //firestore will create auto id for this map
       'air': _airStatus,
-      // 'text': (climateStatus.toString().contains('OFF') ? "airON" : "airOFF"),
-      'createdAt': Timestamp.now().millisecondsSinceEpoch,
-      // 'userId': userInfo.uid,
+      'tempCreatedAt': Timestamp.now().millisecondsSinceEpoch,
     });
   }
 
@@ -134,7 +143,7 @@ class _ClimateControlState extends State<ClimateControl> {
               width: 300.0,
               child: ElevatedButton.icon(
                 onPressed: () {
-                  _sendPowerModeRequest();
+                  _sendTemperatureRequest();
                 },
                 style: _airStatus == AirStatus.cold.toString()
                     ? airBtnStyleCold
@@ -154,9 +163,13 @@ class _ClimateControlState extends State<ClimateControl> {
               width: 300.0,
               child: ElevatedButton.icon(
                 onPressed: () {
-                  _sendSpeedRequest();
+                  (_airStatus != AirStatus.off.toString())
+                      ? _sendSpeedRequest()
+                      : null;
                 },
-                style: airSpeedBtnStyle,
+                style: (_airStatus != AirStatus.off.toString())
+                    ? airSpeedBtnStyle
+                    : airSpeedBtnStyleOff,
                 label: Text(
                     'Fan speed: ${(_fanSpeed / 4 * 100).toStringAsFixed(0)}%'),
                 icon: const Icon(Icons.wind_power),
