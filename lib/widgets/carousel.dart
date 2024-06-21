@@ -16,9 +16,10 @@ class Carousel extends StatefulWidget {
 class _CarouselState extends State<Carousel> {
   final CarouselController slideController = CarouselController();
 
-  final ButtonStyle navigationStyle = OutlinedButton.styleFrom(
-    padding: const EdgeInsets.all(8),
-    foregroundColor: Colors.white,
+  final ButtonStyle navigationStyle = ElevatedButton.styleFrom(
+    padding: const EdgeInsets.all(24),
+    foregroundColor: Colors.black,
+    backgroundColor: Colors.white,
     textStyle: const TextStyle(fontSize: 20),
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(
@@ -87,7 +88,30 @@ class _CarouselState extends State<Carousel> {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 16.0),
                                         child: Icon(
+                                          size: 35.0,
                                           Icons.waving_hand_outlined,
+                                          color: Colors.grey.shade800,
+                                        ),
+                                      )
+                                    : const SizedBox(),
+                                (sliderNotes.indexOf(slideActive) == 1)
+                                    ? Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16.0),
+                                        child: Icon(
+                                          size: 35.0,
+                                          Icons.bluetooth,
+                                          color: Colors.grey.shade800,
+                                        ),
+                                      )
+                                    : const SizedBox(),
+                                (sliderNotes.indexOf(slideActive) == 2)
+                                    ? Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16.0),
+                                        child: Icon(
+                                          size: 35.0,
+                                          Icons.wind_power,
                                           color: Colors.grey.shade800,
                                         ),
                                       )
@@ -99,7 +123,8 @@ class _CarouselState extends State<Carousel> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                (_showingQR)
+                                (_showingQR &&
+                                        sliderNotes.indexOf(slideActive) == 0)
                                     ? _qrImage
                                     : Text(
                                         slideActive,
@@ -110,8 +135,7 @@ class _CarouselState extends State<Carousel> {
                                                 .onSurface),
                                         textAlign: TextAlign.center,
                                       ),
-                                if (!_showingQR &&
-                                    sliderNotes.indexOf(slideActive) == 1)
+                                if (sliderNotes.indexOf(slideActive) == 2)
                                   const Column(
                                     children: [
                                       SizedBox(height: 16),
@@ -120,22 +144,6 @@ class _CarouselState extends State<Carousel> {
                                   )
                               ],
                             ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              const SizedBox(width: 150),
-                              Text(
-                                  'Slide ${sliderNotes.indexOf(slideActive) + 1} of ${sliderNotes.length}',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 22,
-                                      fontStyle: FontStyle.normal,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSurface)),
-                              const SizedBox(width: 150)
-                            ],
                           ),
                           const SizedBox(height: 20),
                         ],
@@ -149,36 +157,37 @@ class _CarouselState extends State<Carousel> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            OutlinedButton.icon(
-              onPressed: () =>
-                  slideController.previousPage(curve: Curves.linear),
-              style: navigationStyle,
-              label: const Text('back'),
-              icon: const Icon(Icons.arrow_circle_left_outlined),
+            SizedBox(
+              width: 200.0,
+              child: ElevatedButton.icon(
+                onLongPress: () {
+                  slideController.animateToPage(0);
+                  setState(() {
+                    _flipQRstate();
+                  });
+                },
+                onPressed: () => slideController.animateToPage(0),
+                style: navigationStyle,
+                label: Text(sliderHeaders[0]),
+              ),
             ),
-            const SizedBox(width: 60),
-            TextButton(
-              onLongPress: () {
-                setState(() {
-                  _flipQRstate();
-                });
-              },
-              onPressed: () {},
-              child: Text('Enjoy your trip!',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontStyle: FontStyle.italic,
-                      decoration: TextDecoration.underline,
-                      decorationColor: Colors.white,
-                      color: Theme.of(context).colorScheme.onSurface)),
+            const SizedBox(width: 16),
+            SizedBox(
+              width: 200.0,
+              child: ElevatedButton.icon(
+                onPressed: () => slideController.animateToPage(1),
+                style: navigationStyle,
+                label: Text(sliderHeaders[1]),
+              ),
             ),
-            const SizedBox(width: 60),
-            OutlinedButton.icon(
-              onPressed: () => slideController.nextPage(curve: Curves.linear),
-              style: navigationStyle,
-              label: const Text('next'),
-              icon: const Icon(Icons.arrow_circle_right_outlined),
+            const SizedBox(width: 16),
+            SizedBox(
+              width: 200.0,
+              child: ElevatedButton.icon(
+                onPressed: () => slideController.animateToPage(2),
+                style: navigationStyle,
+                label: Text(sliderHeaders[2]),
+              ),
             ),
           ],
         ),
