@@ -41,7 +41,7 @@ class _DriverDashboardState extends State<DriverDashboard> {
     });
 
     return Scaffold(
-        backgroundColor: Colors.yellow.shade200,
+        backgroundColor: Colors.blueGrey.shade800,
         body: const Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
