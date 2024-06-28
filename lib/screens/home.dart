@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kiosk/widgets/carousel.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
@@ -11,11 +12,16 @@ class HomeScreen extends StatefulWidget {
   }
 }
 
+void enableFullScreen() {
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+}
+
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     setState(() {
       WakelockPlus.enable();
+      enableFullScreen();
     });
 
     return Scaffold(

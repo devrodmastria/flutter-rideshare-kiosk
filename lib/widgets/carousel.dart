@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:kiosk/data/data.dart';
 import 'package:kiosk/widgets/climate_control.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class Carousel extends StatefulWidget {
   const Carousel({super.key});
@@ -28,6 +29,18 @@ class _CarouselState extends State<Carousel> {
     ),
   );
 
+  final ButtonStyle hyperlinkStyles = ElevatedButton.styleFrom(
+    padding: const EdgeInsets.all(24),
+    foregroundColor: Colors.black,
+    backgroundColor: Colors.white,
+    textStyle: const TextStyle(fontSize: 48),
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(
+        Radius.circular(10),
+      ),
+    ),
+  );
+
   var _showingQR = false;
 
   final _qrImage = QrImageView(
@@ -46,7 +59,16 @@ class _CarouselState extends State<Carousel> {
     return Column(
       children: [
         CarouselSlider(
-          options: CarouselOptions(height: 500.0),
+          options: CarouselOptions(
+            height: 625.0,
+            autoPlay: true,
+            autoPlayInterval: const Duration(seconds: 10),
+            autoPlayAnimationDuration: const Duration(milliseconds: 500),
+            autoPlayCurve: Curves.fastOutSlowIn,
+            enlargeCenterPage: true,
+            enlargeFactor: 0.3,
+            scrollDirection: Axis.horizontal,
+          ),
           carouselController: slideController,
           items: sliderNotes.map((slideActive) {
             return Builder(
@@ -58,8 +80,8 @@ class _CarouselState extends State<Carousel> {
                         borderRadius: BorderRadius.circular(16),
                         gradient: LinearGradient(
                           colors: [
-                            Colors.lightBlue.withOpacity(0.55),
-                            Colors.lightBlue.withOpacity(0.9)
+                            sliderColorA[sliderNotes.indexOf(slideActive)],
+                            sliderColorB[sliderNotes.indexOf(slideActive)],
                           ],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
@@ -78,7 +100,7 @@ class _CarouselState extends State<Carousel> {
                                   sliderHeaders[
                                       sliderNotes.indexOf(slideActive)],
                                   style: TextStyle(
-                                      fontSize: 28,
+                                      fontSize: 60,
                                       fontStyle: FontStyle.italic,
                                       color: Colors.grey.shade800),
                                   textAlign: TextAlign.center,
@@ -88,7 +110,7 @@ class _CarouselState extends State<Carousel> {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 16.0),
                                         child: Icon(
-                                          size: 35.0,
+                                          size: 50.0,
                                           Icons.waving_hand_outlined,
                                           color: Colors.grey.shade800,
                                         ),
@@ -99,7 +121,7 @@ class _CarouselState extends State<Carousel> {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 16.0),
                                         child: Icon(
-                                          size: 35.0,
+                                          size: 50.0,
                                           Icons.bluetooth,
                                           color: Colors.grey.shade800,
                                         ),
@@ -110,7 +132,7 @@ class _CarouselState extends State<Carousel> {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 16.0),
                                         child: Icon(
-                                          size: 35.0,
+                                          size: 50.0,
                                           Icons.wind_power,
                                           color: Colors.grey.shade800,
                                         ),
@@ -129,7 +151,7 @@ class _CarouselState extends State<Carousel> {
                                     : Text(
                                         slideActive,
                                         style: TextStyle(
-                                            fontSize: 34,
+                                            fontSize: 48,
                                             color: Theme.of(context)
                                                 .colorScheme
                                                 .onSurface),
@@ -141,6 +163,42 @@ class _CarouselState extends State<Carousel> {
                                       SizedBox(height: 16),
                                       ClimateControl()
                                     ],
+                                  ),
+                                if (sliderNotes.indexOf(slideActive) == 3)
+                                  Center(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        ElevatedButton(
+                                          style: hyperlinkStyles,
+                                          child: const Text('YouTube'),
+                                          onPressed: () => launchUrlString(
+                                              'https://www.youtube.com/'),
+                                        ),
+                                        const SizedBox(width: 16),
+                                        ElevatedButton(
+                                          style: hyperlinkStyles,
+                                          child: const Text('Games'),
+                                          onPressed: () => launchUrlString(
+                                              'https://www.miniclip.com/'),
+                                        ),
+                                        const SizedBox(width: 16),
+                                        ElevatedButton(
+                                          style: hyperlinkStyles,
+                                          child: const Text('News'),
+                                          onPressed: () => launchUrlString(
+                                              'https://www.apnews.com/'),
+                                        ),
+                                        const SizedBox(width: 16),
+                                        ElevatedButton(
+                                          style: hyperlinkStyles,
+                                          child: const Text('Netflix'),
+                                          onPressed: () => launchUrlString(
+                                              'https://www.netflix.com/'),
+                                        )
+                                      ],
+                                    ),
                                   )
                               ],
                             ),
@@ -187,6 +245,24 @@ class _CarouselState extends State<Carousel> {
                 onPressed: () => slideController.animateToPage(2),
                 style: navigationStyle,
                 label: Text(sliderHeaders[2]),
+              ),
+            ),
+            const SizedBox(width: 16),
+            SizedBox(
+              width: 200.0,
+              child: ElevatedButton.icon(
+                onPressed: () => slideController.animateToPage(3),
+                style: navigationStyle,
+                label: Text(sliderHeaders[3]),
+              ),
+            ),
+            const SizedBox(width: 16),
+            SizedBox(
+              width: 200.0,
+              child: ElevatedButton.icon(
+                onPressed: () => slideController.animateToPage(4),
+                style: navigationStyle,
+                label: Text(sliderHeaders[4]),
               ),
             ),
           ],
