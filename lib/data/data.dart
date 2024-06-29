@@ -9,7 +9,7 @@ const List<String> sliderHeaders = [
 ];
 
 const List<String> sliderNotes = [
-  'Welcome to your Rideshare Kiosk\n\nSwipe to explore! ',
+  '\nWelcome to your Rideshare Kiosk\n\nSwipe to explore! ',
   'Play music via Bluetooth\n\nConnect your phone to JR-CB3',
   'Click below to make a request\n...or ask me directly\n',
   'Select an app to enjoy! \n',

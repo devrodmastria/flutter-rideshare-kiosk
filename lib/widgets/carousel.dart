@@ -33,7 +33,7 @@ class _CarouselState extends State<Carousel> {
     padding: const EdgeInsets.all(24),
     foregroundColor: Colors.black,
     backgroundColor: Colors.white,
-    textStyle: const TextStyle(fontSize: 48),
+    textStyle: const TextStyle(fontSize: 36),
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(
         Radius.circular(10),
@@ -41,18 +41,24 @@ class _CarouselState extends State<Carousel> {
     ),
   );
 
-  var _showingQR = false;
-
-  final _qrImage = QrImageView(
-    data: 'https://www.linkedin.com/in/rodmastria/',
-    version: QrVersions.auto,
-    size: 300.0,
+  final ButtonStyle qrStyle = ElevatedButton.styleFrom(
+    padding: const EdgeInsets.all(2),
+    foregroundColor: Colors.black,
     backgroundColor: Colors.white,
+    textStyle: const TextStyle(fontSize: 24),
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(
+        Radius.circular(5),
+      ),
+    ),
   );
 
-  void _flipQRstate() {
-    _showingQR = !_showingQR;
-  }
+  final _qrImage = QrImageView(
+    data: 'https://linktr.ee/rodmastria',
+    version: QrVersions.auto,
+    size: 150.0,
+    backgroundColor: Colors.white,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -145,18 +151,34 @@ class _CarouselState extends State<Carousel> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                (_showingQR &&
-                                        sliderNotes.indexOf(slideActive) == 0)
-                                    ? _qrImage
-                                    : Text(
-                                        slideActive,
-                                        style: TextStyle(
-                                            fontSize: 48,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onSurface),
-                                        textAlign: TextAlign.center,
+                                Text(
+                                  slideActive,
+                                  style: TextStyle(
+                                      fontSize: 48,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface),
+                                  textAlign: TextAlign.center,
+                                ),
+                                if (sliderNotes.indexOf(slideActive) == 0)
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const SizedBox(),
+                                      const SizedBox(),
+                                      Container(
+                                        margin:
+                                            const EdgeInsets.only(right: 8.0),
+                                        child: ElevatedButton(
+                                          style: qrStyle,
+                                          child: _qrImage,
+                                          onPressed: () => launchUrlString(
+                                              'https://linktr.ee/rodmastria'),
+                                        ),
                                       ),
+                                    ],
+                                  ),
                                 if (sliderNotes.indexOf(slideActive) == 2)
                                   const Column(
                                     children: [
@@ -176,21 +198,21 @@ class _CarouselState extends State<Carousel> {
                                           onPressed: () => launchUrlString(
                                               'https://www.youtube.com/'),
                                         ),
-                                        const SizedBox(width: 16),
+                                        const SizedBox(width: 24),
                                         ElevatedButton(
                                           style: hyperlinkStyles,
                                           child: const Text('Games'),
                                           onPressed: () => launchUrlString(
                                               'https://www.miniclip.com/'),
                                         ),
-                                        const SizedBox(width: 16),
+                                        const SizedBox(width: 24),
                                         ElevatedButton(
                                           style: hyperlinkStyles,
                                           child: const Text('News'),
                                           onPressed: () => launchUrlString(
                                               'https://www.apnews.com/'),
                                         ),
-                                        const SizedBox(width: 16),
+                                        const SizedBox(width: 24),
                                         ElevatedButton(
                                           style: hyperlinkStyles,
                                           child: const Text('Netflix'),
@@ -218,12 +240,6 @@ class _CarouselState extends State<Carousel> {
             SizedBox(
               width: 200.0,
               child: ElevatedButton.icon(
-                onLongPress: () {
-                  slideController.animateToPage(0);
-                  setState(() {
-                    _flipQRstate();
-                  });
-                },
                 onPressed: () => slideController.animateToPage(0),
                 style: navigationStyle,
                 label: Text(sliderHeaders[0]),

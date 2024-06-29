@@ -17,7 +17,7 @@ class _ClimateControlState extends State<ClimateControl> {
     padding: const EdgeInsets.all(16),
     foregroundColor: Colors.white,
     backgroundColor: Colors.red.shade400,
-    textStyle: const TextStyle(fontSize: 28),
+    textStyle: const TextStyle(fontSize: 36),
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(
         Radius.circular(10),
@@ -29,7 +29,7 @@ class _ClimateControlState extends State<ClimateControl> {
     padding: const EdgeInsets.all(16),
     foregroundColor: Colors.white,
     backgroundColor: Colors.blue.shade900,
-    textStyle: const TextStyle(fontSize: 28),
+    textStyle: const TextStyle(fontSize: 36),
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(
         Radius.circular(10),
@@ -41,7 +41,7 @@ class _ClimateControlState extends State<ClimateControl> {
     padding: const EdgeInsets.all(16),
     foregroundColor: Colors.white,
     backgroundColor: Colors.grey.shade900,
-    textStyle: const TextStyle(fontSize: 28),
+    textStyle: const TextStyle(fontSize: 36),
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(
         Radius.circular(10),
@@ -51,9 +51,9 @@ class _ClimateControlState extends State<ClimateControl> {
 
   final ButtonStyle airSpeedBtnStyle = OutlinedButton.styleFrom(
     padding: const EdgeInsets.all(16),
-    foregroundColor: Colors.black54,
+    foregroundColor: Colors.black87,
     backgroundColor: Colors.white70,
-    textStyle: const TextStyle(fontSize: 28),
+    textStyle: const TextStyle(fontSize: 36),
     shape: RoundedRectangleBorder(
       side: BorderSide(width: 4.0, color: Colors.blue.shade800),
       borderRadius: const BorderRadius.all(
@@ -64,10 +64,10 @@ class _ClimateControlState extends State<ClimateControl> {
 
   final ButtonStyle airSpeedBtnStyleOff = OutlinedButton.styleFrom(
     padding: const EdgeInsets.all(16),
-    foregroundColor: Colors.black54,
+    foregroundColor: Colors.black87,
     backgroundColor: Colors.white70,
     textStyle:
-        const TextStyle(fontSize: 28, decoration: TextDecoration.lineThrough),
+        const TextStyle(fontSize: 36, decoration: TextDecoration.lineThrough),
     shape: RoundedRectangleBorder(
       side: BorderSide(width: 4.0, color: Colors.blue.shade800),
       borderRadius: const BorderRadius.all(
@@ -140,7 +140,7 @@ class _ClimateControlState extends State<ClimateControl> {
         return Center(
           child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             SizedBox(
-              width: 300.0,
+              width: 350.0,
               child: ElevatedButton.icon(
                 onPressed: () {
                   _sendTemperatureRequest();
@@ -160,7 +160,7 @@ class _ClimateControlState extends State<ClimateControl> {
             ),
             const SizedBox(width: 24),
             SizedBox(
-              width: 300.0,
+              width: 350.0,
               child: ElevatedButton.icon(
                 onPressed: () {
                   (_airStatus != AirStatus.off.toString())
