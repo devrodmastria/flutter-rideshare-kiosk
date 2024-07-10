@@ -13,7 +13,7 @@ const List<String> sliderNotes = [
   'Play your music via Bluetooth\n\nOpen your phone and connect to JR-CB3',
   'Click below to make a request\n',
   'Select an app to enjoy! \n',
-  'Items available upon request:\n\nWater & Trash Bag',
+  'Bottled Water & Trash Bag\n\nare available upon request',
 ];
 
 List<Color> sliderGradientStart = [

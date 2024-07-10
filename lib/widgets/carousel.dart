@@ -21,7 +21,7 @@ class _CarouselState extends State<Carousel> {
     padding: const EdgeInsets.fromLTRB(8, 24, 8, 24),
     foregroundColor: Colors.black,
     backgroundColor: Colors.blue.shade100,
-    textStyle: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+    textStyle: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(
         Radius.circular(10),
