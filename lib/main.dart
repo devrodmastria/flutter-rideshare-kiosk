@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kiosk/screens/home.dart';
+import 'package:kiosk/screens/rider_home.dart';
 import 'package:kiosk/screens/login.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';

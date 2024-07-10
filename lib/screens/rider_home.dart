@@ -14,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 
 void enableFullScreen() {
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight]);
 }
 
 class _HomeScreenState extends State<HomeScreen> {

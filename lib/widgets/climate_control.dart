@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kiosk/data/data.dart';
 
@@ -55,7 +54,7 @@ class _ClimateControlState extends State<ClimateControl> {
     backgroundColor: Colors.white70,
     textStyle: const TextStyle(fontSize: 36),
     shape: RoundedRectangleBorder(
-      side: BorderSide(width: 4.0, color: Colors.blue.shade800),
+      side: BorderSide(width: 5.0, color: Colors.blue.shade800),
       borderRadius: const BorderRadius.all(
         Radius.circular(10),
       ),

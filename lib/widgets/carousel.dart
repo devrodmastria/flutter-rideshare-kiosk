@@ -18,10 +18,10 @@ class _CarouselState extends State<Carousel> {
   final CarouselController slideController = CarouselController();
 
   final ButtonStyle navigationStyle = ElevatedButton.styleFrom(
-    padding: const EdgeInsets.all(24),
+    padding: const EdgeInsets.fromLTRB(8, 24, 8, 24),
     foregroundColor: Colors.black,
-    backgroundColor: Colors.white,
-    textStyle: const TextStyle(fontSize: 20),
+    backgroundColor: Colors.blue.shade100,
+    textStyle: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(
         Radius.circular(10),
@@ -42,7 +42,7 @@ class _CarouselState extends State<Carousel> {
   );
 
   final ButtonStyle qrStyle = ElevatedButton.styleFrom(
-    padding: const EdgeInsets.all(2),
+    padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
     foregroundColor: Colors.black,
     backgroundColor: Colors.white,
     textStyle: const TextStyle(fontSize: 24),
@@ -86,8 +86,8 @@ class _CarouselState extends State<Carousel> {
                         borderRadius: BorderRadius.circular(16),
                         gradient: LinearGradient(
                           colors: [
-                            sliderColorA[sliderNotes.indexOf(slideActive)],
-                            sliderColorB[sliderNotes.indexOf(slideActive)],
+                            sliderGradientStart[0],
+                            sliderGradientEnd[0],
                           ],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
@@ -160,25 +160,6 @@ class _CarouselState extends State<Carousel> {
                                           .onSurface),
                                   textAlign: TextAlign.center,
                                 ),
-                                if (sliderNotes.indexOf(slideActive) == 0)
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      const SizedBox(),
-                                      const SizedBox(),
-                                      Container(
-                                        margin:
-                                            const EdgeInsets.only(right: 8.0),
-                                        child: ElevatedButton(
-                                          style: qrStyle,
-                                          child: _qrImage,
-                                          onPressed: () => launchUrlString(
-                                              'https://linktr.ee/rodmastria'),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
                                 if (sliderNotes.indexOf(slideActive) == 2)
                                   const Column(
                                     children: [

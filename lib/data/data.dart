@@ -5,31 +5,35 @@ const List<String> sliderHeaders = [
   'Music',
   'Climate Control',
   'Entertainment',
-  'HELP'
+  'Health'
 ];
 
 const List<String> sliderNotes = [
-  '\nWelcome to your Rideshare Kiosk\n\nSwipe to explore! ',
-  'Play music via Bluetooth\n\nConnect your phone to JR-CB3',
-  'Click below to make a request\n...or ask me directly\n',
+  'Welcome to your Rideshare Kiosk\n\nSwipe to explore!',
+  'Play your music via Bluetooth\n\nOpen your phone and connect to JR-CB3',
+  'Click below to make a request\n',
   'Select an app to enjoy! \n',
-  'Water \n Nausea Bag \n\n available upon request',
+  'Items available upon request:\n\nWater & Trash Bag',
 ];
 
-List<Color> sliderColorA = [
-  Colors.red.shade400.withOpacity(0.6),
-  Colors.orange.shade400.withOpacity(0.6),
-  Colors.yellow.shade400.withOpacity(0.6),
-  Colors.lightBlue.withOpacity(0.6),
-  Colors.lightGreen.withOpacity(0.6),
+List<Color> sliderGradientStart = [
+  Colors.blue.shade200.withOpacity(0.6), // default value
+
+  //alternatives
+  Colors.red.shade200.withOpacity(0.6),
+  Colors.orange.shade200.withOpacity(0.6),
+  Colors.yellow.shade200.withOpacity(0.6),
+  Colors.green.shade200.withOpacity(0.6),
 ];
 
-List<Color> sliderColorB = [
-  Colors.lightBlue.withOpacity(0.6),
-  Colors.lightGreen.withOpacity(0.6),
-  Colors.purple.shade400.withOpacity(0.6),
-  Colors.orange.shade400.withOpacity(0.6),
-  Colors.red.shade400.withOpacity(0.6),
+List<Color> sliderGradientEnd = [
+  Colors.blue.shade900.withOpacity(0.6), // default value
+
+  //alternatives
+  Colors.red.shade600.withOpacity(0.6),
+  Colors.orange.shade600.withOpacity(0.6),
+  Colors.yellow.shade600.withOpacity(0.6),
+  Colors.green.shade600.withOpacity(0.6),
 ];
 
 enum AirStatus { cold, heat, off }
