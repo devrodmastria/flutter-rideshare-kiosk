@@ -49,7 +49,7 @@ class _ClimateControlState extends State<ClimateControl> {
   );
 
   final ButtonStyle airSpeedBtnStyle = OutlinedButton.styleFrom(
-    padding: const EdgeInsets.all(16),
+    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
     foregroundColor: Colors.black87,
     backgroundColor: Colors.white70,
     textStyle: const TextStyle(fontSize: 36),
@@ -62,7 +62,7 @@ class _ClimateControlState extends State<ClimateControl> {
   );
 
   final ButtonStyle airSpeedBtnStyleOff = OutlinedButton.styleFrom(
-    padding: const EdgeInsets.all(16),
+    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
     foregroundColor: Colors.black87,
     backgroundColor: Colors.white70,
     textStyle:
