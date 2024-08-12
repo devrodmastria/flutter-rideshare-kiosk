@@ -128,7 +128,7 @@ class _CarouselState extends State<Carousel> {
                                             horizontal: 16.0),
                                         child: Icon(
                                           size: 50.0,
-                                          Icons.bluetooth,
+                                          Icons.music_note,
                                           color: Colors.grey.shade800,
                                         ),
                                       )
@@ -178,13 +178,6 @@ class _CarouselState extends State<Carousel> {
                                           child: const Text('YouTube'),
                                           onPressed: () => launchUrlString(
                                               'https://www.youtube.com/'),
-                                        ),
-                                        const SizedBox(width: 24),
-                                        ElevatedButton(
-                                          style: hyperlinkStyles,
-                                          child: const Text('Games'),
-                                          onPressed: () => launchUrlString(
-                                              'https://www.miniclip.com/'),
                                         ),
                                         const SizedBox(width: 24),
                                         ElevatedButton(
