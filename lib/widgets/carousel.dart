@@ -123,16 +123,18 @@ class _CarouselState extends State<Carousel> {
                                       )
                                     : const SizedBox(),
                                 (sliderNotes.indexOf(slideActive) == 1)
+                                    ///////////////////////////////////////////
                                     ? Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16.0),
+                                        padding: const EdgeInsets.fromLTRB(
+                                            16.0, 16.0, 0.0, 0.0),
                                         child: Icon(
                                           size: 50.0,
-                                          Icons.music_note,
+                                          Icons.music_note_outlined,
                                           color: Colors.grey.shade800,
                                         ),
                                       )
                                     : const SizedBox(),
+                                /////////////////////////////////////////
                                 (sliderNotes.indexOf(slideActive) == 2)
                                     ? Padding(
                                         padding: const EdgeInsets.symmetric(

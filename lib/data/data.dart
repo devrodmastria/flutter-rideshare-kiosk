@@ -5,12 +5,12 @@ const List<String> sliderHeaders = [
   'Music',
   'Climate Control',
   'Entertainment',
-  'Health'
+  'Water'
 ];
 
 const List<String> sliderNotes = [
   'Welcome to your Rideshare Kiosk\n\nSwipe to explore!',
-  'Play your music using the\n\naux cord located under the tablet',
+  'Play music with the audio\ncable located under the tablet',
   'Click below to change A/C settings\n',
   'Select an app to enjoy!\n',
   'Water available upon request\n\nTrash bag located under the tablet',
