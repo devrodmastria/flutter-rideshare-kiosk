@@ -30,7 +30,7 @@ class _CarouselState extends State<Carousel> {
   );
 
   final ButtonStyle hyperlinkStyles = ElevatedButton.styleFrom(
-    padding: const EdgeInsets.all(24),
+    padding: const EdgeInsets.all(16.0),
     foregroundColor: Colors.black,
     backgroundColor: Colors.white,
     textStyle: const TextStyle(fontSize: 36),
@@ -177,6 +177,13 @@ class _CarouselState extends State<Carousel> {
                                       children: [
                                         ElevatedButton(
                                           style: hyperlinkStyles,
+                                          child: const Text('D.I.A. Events'),
+                                          onPressed: () => launchUrlString(
+                                              'https://dia.org/events'),
+                                        ),
+                                        const SizedBox(width: 24),
+                                        ElevatedButton(
+                                          style: hyperlinkStyles,
                                           child: const Text('YouTube'),
                                           onPressed: () => launchUrlString(
                                               'https://www.youtube.com/'),
@@ -184,16 +191,9 @@ class _CarouselState extends State<Carousel> {
                                         const SizedBox(width: 24),
                                         ElevatedButton(
                                           style: hyperlinkStyles,
-                                          child: const Text('News'),
+                                          child: const Text('AP News'),
                                           onPressed: () => launchUrlString(
                                               'https://www.apnews.com/'),
-                                        ),
-                                        const SizedBox(width: 24),
-                                        ElevatedButton(
-                                          style: hyperlinkStyles,
-                                          child: const Text('Netflix'),
-                                          onPressed: () => launchUrlString(
-                                              'https://www.netflix.com/'),
                                         )
                                       ],
                                     ),
