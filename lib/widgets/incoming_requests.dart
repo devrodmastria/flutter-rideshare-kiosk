@@ -40,7 +40,7 @@ class _IncomingRequests extends State<IncomingRequests> {
   final ButtonStyle airBtnStyleCold = OutlinedButton.styleFrom(
     padding: const EdgeInsets.all(16),
     foregroundColor: Colors.white,
-    backgroundColor: Colors.blue.shade900,
+    backgroundColor: Colors.blue.shade400,
     textStyle: const TextStyle(fontSize: _fontSize),
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(
@@ -51,8 +51,8 @@ class _IncomingRequests extends State<IncomingRequests> {
 
   final ButtonStyle airBtnStyleOff = OutlinedButton.styleFrom(
     padding: const EdgeInsets.all(16),
-    foregroundColor: Colors.white,
-    backgroundColor: Colors.grey.shade900,
+    foregroundColor: Colors.black87,
+    backgroundColor: Colors.grey.shade400,
     textStyle: const TextStyle(fontSize: _fontSize),
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(
@@ -93,6 +93,15 @@ class _IncomingRequests extends State<IncomingRequests> {
   void _flipRequestVisibilityFan() {
     _currentTimeFan = DateTime.now().millisecondsSinceEpoch;
     _requestVisibleFan = !_requestVisibleFan;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    // hide old requests on launch
+    _flipRequestVisibilityFan();
+    _flipRequestVisibilityTemp();
   }
 
   @override

@@ -165,8 +165,8 @@ class _CarouselState extends State<Carousel> {
                                 if (sliderNotes.indexOf(slideActive) == 2)
                                   const Column(
                                     children: [
-                                      SizedBox(height: 16),
-                                      ClimateControl()
+                                      SizedBox(
+                                          height: 200, child: ClimateControl())
                                     ],
                                   ),
                                 if (sliderNotes.indexOf(slideActive) == 3)

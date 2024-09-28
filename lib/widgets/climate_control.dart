@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:kiosk/data/data.dart';
+import 'package:flutter/cupertino.dart';
 
 class ClimateControl extends StatefulWidget {
   const ClimateControl({super.key});
@@ -12,42 +13,6 @@ class ClimateControl extends StatefulWidget {
 }
 
 class _ClimateControlState extends State<ClimateControl> {
-  final ButtonStyle airBtnStyleHeat = OutlinedButton.styleFrom(
-    padding: const EdgeInsets.all(16),
-    foregroundColor: Colors.white,
-    backgroundColor: Colors.red.shade400,
-    textStyle: const TextStyle(fontSize: 36),
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(
-        Radius.circular(10),
-      ),
-    ),
-  );
-
-  final ButtonStyle airBtnStyleCold = OutlinedButton.styleFrom(
-    padding: const EdgeInsets.all(16),
-    foregroundColor: Colors.white,
-    backgroundColor: Colors.blue.shade900,
-    textStyle: const TextStyle(fontSize: 36),
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(
-        Radius.circular(10),
-      ),
-    ),
-  );
-
-  final ButtonStyle airBtnStyleOff = OutlinedButton.styleFrom(
-    padding: const EdgeInsets.all(16),
-    foregroundColor: Colors.white,
-    backgroundColor: Colors.grey.shade900,
-    textStyle: const TextStyle(fontSize: 36),
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(
-        Radius.circular(10),
-      ),
-    ),
-  );
-
   final ButtonStyle airSpeedBtnStyle = OutlinedButton.styleFrom(
     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
     foregroundColor: Colors.black87,
@@ -55,20 +20,6 @@ class _ClimateControlState extends State<ClimateControl> {
     textStyle: const TextStyle(fontSize: 36),
     shape: RoundedRectangleBorder(
       side: BorderSide(width: 5.0, color: Colors.blue.shade800),
-      borderRadius: const BorderRadius.all(
-        Radius.circular(10),
-      ),
-    ),
-  );
-
-  final ButtonStyle airSpeedBtnStyleOff = OutlinedButton.styleFrom(
-    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-    foregroundColor: Colors.black87,
-    backgroundColor: Colors.white70,
-    textStyle:
-        const TextStyle(fontSize: 36, decoration: TextDecoration.lineThrough),
-    shape: RoundedRectangleBorder(
-      side: BorderSide(width: 4.0, color: Colors.blue.shade800),
       borderRadius: const BorderRadius.all(
         Radius.circular(10),
       ),
@@ -95,23 +46,8 @@ class _ClimateControlState extends State<ClimateControl> {
     });
   }
 
-  void _sendTemperatureRequest() async {
-    // final userInfo = FirebaseAuth.instance.currentUser!;
-
-    _airStatus = _airStatus == AirStatus.cold.toString()
-        ? AirStatus.heat.toString()
-        : _airStatus == AirStatus.heat.toString()
-            ? AirStatus.off.toString()
-            : _airStatus == AirStatus.off.toString()
-                ? AirStatus.cold.toString()
-                : AirStatus.cold.toString();
-
-    // final rideMetaInfo = await FirebaseFirestore.instance
-    //     .collection('ride')
-    //     .doc('climate_status')
-    //     .get();
-
-    // final climateStatus = rideMetaInfo.data()!['air'];
+  void _sendTempRequest(String temp) async {
+    _airStatus = temp;
 
     FirebaseFirestore.instance.collection('ride').doc('climate_status').update({
       'air': _airStatus,
@@ -137,43 +73,61 @@ class _ClimateControlState extends State<ClimateControl> {
         _fanSpeed = airStatusList[0].data()['speed'];
 
         return Center(
-          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            SizedBox(
-              width: 350.0,
-              child: ElevatedButton.icon(
-                onPressed: () {
-                  _sendTemperatureRequest();
-                },
-                style: _airStatus == AirStatus.cold.toString()
-                    ? airBtnStyleCold
-                    : _airStatus == AirStatus.heat.toString()
-                        ? airBtnStyleHeat
-                        : airBtnStyleOff,
-                label: Text(_airStatus == AirStatus.cold.toString()
-                    ? 'A/C ON'
-                    : _airStatus == AirStatus.heat.toString()
-                        ? 'Heat ON'
-                        : 'Air/Heat Off'),
-                icon: const Icon(Icons.sunny_snowing),
-              ),
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            CupertinoSegmentedControl(
+              selectedColor: Colors.blue.shade800,
+              unselectedColor: Colors.white,
+              groupValue: _airStatus,
+              borderColor: Colors.blue.shade800,
+              onValueChanged: (String value) {
+                setState(() {
+                  _airStatus = value;
+                  _sendTempRequest(value);
+                });
+              },
+              children: {
+                AirStatus.cold.toString(): Container(
+                  padding: const EdgeInsets.all(16),
+                  child: const Text(
+                    'A/C',
+                    style: TextStyle(fontSize: 36),
+                  ),
+                ),
+                AirStatus.heat.toString(): Container(
+                    padding: const EdgeInsets.all(16),
+                    child: const Text(
+                      'Heat',
+                      style: TextStyle(fontSize: 36),
+                    )),
+                AirStatus.off.toString(): Container(
+                    padding: const EdgeInsets.all(16),
+                    child: const Text(
+                      'Off',
+                      style: TextStyle(fontSize: 36),
+                    )),
+              },
             ),
-            const SizedBox(width: 24),
-            SizedBox(
-              width: 350.0,
-              child: ElevatedButton.icon(
-                onPressed: () {
-                  (_airStatus != AirStatus.off.toString())
-                      ? _sendSpeedRequest()
-                      : null;
-                },
-                style: (_airStatus != AirStatus.off.toString())
-                    ? airSpeedBtnStyle
-                    : airSpeedBtnStyleOff,
-                label: Text(
-                    'Fan speed: ${(_fanSpeed / 4 * 100).toStringAsFixed(0)}%'),
-                icon: const Icon(Icons.wind_power),
+            const SizedBox(height: 24),
+            Visibility(
+              visible: (_airStatus != AirStatus.off.toString()),
+              maintainSize: true,
+              maintainAnimation: true,
+              maintainState: true,
+              child: SizedBox(
+                width: 350.0,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    (_airStatus != AirStatus.off.toString())
+                        ? _sendSpeedRequest()
+                        : null;
+                  },
+                  style: airSpeedBtnStyle,
+                  label: Text(
+                      'Fan speed: ${(_fanSpeed / 4 * 100).toStringAsFixed(0)}%'),
+                  icon: const Icon(Icons.wind_power),
+                ),
               ),
-            ),
+            )
           ]),
         );
       },
