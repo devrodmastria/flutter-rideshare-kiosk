@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:kiosk/data/data.dart';
 import 'package:kiosk/widgets/climate_control.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class Carousel extends StatefulWidget {
@@ -51,13 +50,6 @@ class _CarouselState extends State<Carousel> {
         Radius.circular(5),
       ),
     ),
-  );
-
-  final _qrImage = QrImageView(
-    data: 'https://linktr.ee/rodmastria',
-    version: QrVersions.auto,
-    size: 150.0,
-    backgroundColor: Colors.white,
   );
 
   @override
@@ -111,6 +103,8 @@ class _CarouselState extends State<Carousel> {
                                       color: Colors.grey.shade800),
                                   textAlign: TextAlign.center,
                                 ),
+
+                                // slider header icons
                                 (sliderNotes.indexOf(slideActive) == 0)
                                     ? Padding(
                                         padding: const EdgeInsets.symmetric(
@@ -123,10 +117,9 @@ class _CarouselState extends State<Carousel> {
                                       )
                                     : const SizedBox(),
                                 (sliderNotes.indexOf(slideActive) == 1)
-                                    ///////////////////////////////////////////
                                     ? Padding(
                                         padding: const EdgeInsets.fromLTRB(
-                                            16.0, 16.0, 0.0, 0.0),
+                                            16.0, 8.0, 0.0, 0.0),
                                         child: Icon(
                                           size: 50.0,
                                           Icons.music_note_outlined,
@@ -134,7 +127,6 @@ class _CarouselState extends State<Carousel> {
                                         ),
                                       )
                                     : const SizedBox(),
-                                /////////////////////////////////////////
                                 (sliderNotes.indexOf(slideActive) == 2)
                                     ? Padding(
                                         padding: const EdgeInsets.symmetric(
@@ -142,6 +134,28 @@ class _CarouselState extends State<Carousel> {
                                         child: Icon(
                                           size: 50.0,
                                           Icons.wind_power,
+                                          color: Colors.grey.shade800,
+                                        ),
+                                      )
+                                    : const SizedBox(),
+                                (sliderNotes.indexOf(slideActive) == 3)
+                                    ? Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            16.0, 8.0, 0.0, 0.0),
+                                        child: Icon(
+                                          size: 50.0,
+                                          Icons.theater_comedy_outlined,
+                                          color: Colors.grey.shade800,
+                                        ),
+                                      )
+                                    : const SizedBox(),
+                                (sliderNotes.indexOf(slideActive) == 4)
+                                    ? Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            16.0, 8.0, 0.0, 0.0),
+                                        child: Icon(
+                                          size: 50.0,
+                                          Icons.water_drop_outlined,
                                           color: Colors.grey.shade800,
                                         ),
                                       )
@@ -184,16 +198,16 @@ class _CarouselState extends State<Carousel> {
                                         const SizedBox(width: 24),
                                         ElevatedButton(
                                           style: hyperlinkStyles,
-                                          child: const Text('YouTube'),
+                                          child: const Text('Metro Times'),
                                           onPressed: () => launchUrlString(
-                                              'https://www.youtube.com/'),
+                                              'https://www.metrotimes.com/'),
                                         ),
                                         const SizedBox(width: 24),
                                         ElevatedButton(
                                           style: hyperlinkStyles,
-                                          child: const Text('AP News'),
+                                          child: const Text('YouTube'),
                                           onPressed: () => launchUrlString(
-                                              'https://www.apnews.com/'),
+                                              'https://www.youtube.com/'),
                                         )
                                       ],
                                     ),

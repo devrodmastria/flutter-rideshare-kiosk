@@ -10,10 +10,10 @@ const List<String> sliderHeaders = [
 
 const List<String> sliderNotes = [
   'Welcome to your Rideshare Kiosk\n\nSwipe to explore!',
-  'Play music with the\naudio cable located\nunder the tablet',
+  'Play music with the\n audio cable located\n near the power outlet',
   'Change cabin settings\n',
   'Select an app to enjoy!\n',
-  'Water available upon request\n\nTrash bag located under the tablet',
+  'Water available upon request\n\nTrash bag located under power outlet',
 ];
 
 List<Color> sliderGradientStart = [
