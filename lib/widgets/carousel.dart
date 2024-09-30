@@ -3,6 +3,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:kiosk/data/data.dart';
 import 'package:kiosk/widgets/climate_control.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:battery_plus/battery_plus.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Carousel extends StatefulWidget {
   const Carousel({super.key});
@@ -15,6 +17,7 @@ class Carousel extends StatefulWidget {
 
 class _CarouselState extends State<Carousel> {
   final CarouselController slideController = CarouselController();
+  final _battery = Battery();
 
   final ButtonStyle navigationStyle = ElevatedButton.styleFrom(
     padding: const EdgeInsets.fromLTRB(8, 24, 8, 24),
@@ -52,6 +55,12 @@ class _CarouselState extends State<Carousel> {
     ),
   );
 
+  void _updateBattLevel(int batt) async {
+    FirebaseFirestore.instance.collection('ride').doc('climate_status').update({
+      'battery': batt,
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -66,6 +75,11 @@ class _CarouselState extends State<Carousel> {
             enlargeCenterPage: true,
             enlargeFactor: 0.3,
             scrollDirection: Axis.horizontal,
+            onPageChanged: (index, reason) {
+              (index == 3 && reason == CarouselPageChangedReason.timed)
+                  ? _battery.batteryLevel.then((batt) => _updateBattLevel(batt))
+                  : null;
+            },
           ),
           carouselController: slideController,
           items: sliderNotes.map((slideActive) {
@@ -211,7 +225,7 @@ class _CarouselState extends State<Carousel> {
                                         )
                                       ],
                                     ),
-                                  )
+                                  ),
                               ],
                             ),
                           ),

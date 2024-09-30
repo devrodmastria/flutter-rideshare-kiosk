@@ -23,6 +23,9 @@ class _IncomingRequests extends State<IncomingRequests> {
 
   String _tempStatus = AirStatus.cold.toString();
   var _fanSpeed = 1;
+
+  var _kioskBattery = 0;
+
   static const _fontSize = 24.0;
 
   final ButtonStyle airBtnStyleHeat = OutlinedButton.styleFrom(
@@ -127,11 +130,27 @@ class _IncomingRequests extends State<IncomingRequests> {
         _requestTimeFan = airStatusList[0].data()['fanCreatedAt'];
         _requestVisibleFan = _currentTimeFan < _requestTimeFan;
 
+        _kioskBattery = airStatusList[0].data()['battery'];
+
         return Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Kiosk ${_kioskBattery.toString()}%',
+                      style:
+                          const TextStyle(fontSize: 24, color: Colors.white)),
+                  const Icon(
+                    size: 25.0,
+                    Icons.battery_charging_full,
+                    color: Colors.white,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 30),
               Visibility(
                   visible: _requestVisibleTemp,
                   maintainState: true,

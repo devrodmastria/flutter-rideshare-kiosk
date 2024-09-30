@@ -45,6 +45,7 @@ dependencies:
   firebase_auth: ^4.17.8
   cloud_firestore: ^4.17.5
   one_clock: ^2.0.1
+  battery_plus: ^6.0.2
 
 dev_dependencies:
   flutter_test:
