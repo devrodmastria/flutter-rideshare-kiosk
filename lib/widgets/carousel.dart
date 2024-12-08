@@ -16,7 +16,7 @@ class Carousel extends StatefulWidget {
 }
 
 class _CarouselState extends State<Carousel> {
-  final CarouselController slideController = CarouselController();
+  final CarouselSliderController slideController = CarouselSliderController();
   final _battery = Battery();
 
   final ButtonStyle navigationStyle = ElevatedButton.styleFrom(

@@ -16,10 +16,10 @@ class _ClimateControlState extends State<ClimateControl> {
   final ButtonStyle airSpeedBtnStyle = OutlinedButton.styleFrom(
     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
     foregroundColor: Colors.black87,
-    backgroundColor: Colors.white70,
+    backgroundColor: Colors.white,
     textStyle: const TextStyle(fontSize: 36),
     shape: RoundedRectangleBorder(
-      side: BorderSide(width: 5.0, color: Colors.blue.shade800),
+      side: BorderSide(width: 7.0, color: sliderGradientEnd[4]),
       borderRadius: const BorderRadius.all(
         Radius.circular(10),
       ),
@@ -78,7 +78,7 @@ class _ClimateControlState extends State<ClimateControl> {
               selectedColor: Colors.blue.shade800,
               unselectedColor: Colors.white,
               groupValue: _airStatus,
-              borderColor: Colors.blue.shade800,
+              borderColor: Colors.white,
               onValueChanged: (String value) {
                 setState(() {
                   _airStatus = value;
