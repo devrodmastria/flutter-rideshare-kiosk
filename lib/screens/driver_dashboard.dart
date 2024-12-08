@@ -27,14 +27,16 @@ class _DriverDashboardState extends State<DriverDashboard> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              SizedBox(height: 50),
               ClockTool(),
+              SizedBox(height: 50),
               SizedBox(
-                height: 300,
-                child: IncomingRequests(),
+                height: 180,
+                child: ClimateControl(),
               ),
               SizedBox(
                 height: 300,
-                child: ClimateControl(),
+                child: IncomingRequests(),
               ),
             ],
           ),

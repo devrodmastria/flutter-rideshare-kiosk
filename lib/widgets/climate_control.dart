@@ -17,7 +17,7 @@ class _ClimateControlState extends State<ClimateControl> {
     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
     foregroundColor: Colors.black87,
     backgroundColor: Colors.white,
-    textStyle: const TextStyle(fontSize: 36),
+    textStyle: const TextStyle(fontSize: 30),
     shape: RoundedRectangleBorder(
       side: BorderSide(width: 7.0, color: sliderGradientEnd[4]),
       borderRadius: const BorderRadius.all(
@@ -90,20 +90,20 @@ class _ClimateControlState extends State<ClimateControl> {
                   padding: const EdgeInsets.all(16),
                   child: const Text(
                     'A/C',
-                    style: TextStyle(fontSize: 36),
+                    style: TextStyle(fontSize: 30),
                   ),
                 ),
                 AirStatus.heat.toString(): Container(
                     padding: const EdgeInsets.all(16),
                     child: const Text(
                       'Heat',
-                      style: TextStyle(fontSize: 36),
+                      style: TextStyle(fontSize: 30),
                     )),
                 AirStatus.off.toString(): Container(
                     padding: const EdgeInsets.all(16),
                     child: const Text(
                       'Off',
-                      style: TextStyle(fontSize: 36),
+                      style: TextStyle(fontSize: 30),
                     )),
               },
             ),
@@ -114,7 +114,7 @@ class _ClimateControlState extends State<ClimateControl> {
               maintainAnimation: true,
               maintainState: true,
               child: SizedBox(
-                width: 350.0,
+                width: 300.0,
                 child: ElevatedButton.icon(
                   onPressed: () {
                     (_airStatus != AirStatus.off.toString())
