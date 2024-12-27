@@ -10,7 +10,7 @@ const List<String> sliderHeaders = [
 
 const List<String> sliderNotes = [
   'Welcome to your Rideshare Kiosk\n\nSwipe to explore!',
-  'Play music with the\n audio cable located\n near the power outlet',
+  'Play music with the\n audio adapter located\n near the tablet',
   'Cabin settings\n',
   'Select an app to enjoy!\n',
   'Water available upon request\n\nTrash bag located under power outlet',
@@ -37,3 +37,5 @@ List<Color> sliderGradientEnd = [
 ];
 
 enum AirStatus { cold, heat, off }
+
+enum FanStatus { slow, medium, high, max }

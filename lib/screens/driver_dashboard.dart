@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kiosk/widgets/climate_control.dart';
 import 'package:kiosk/widgets/clock.dart';
 import 'package:kiosk/widgets/incoming_requests.dart';
+import 'package:kiosk/widgets/kiosk_battery.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 class DriverDashboard extends StatefulWidget {
@@ -29,15 +30,11 @@ class _DriverDashboardState extends State<DriverDashboard> {
             children: [
               SizedBox(height: 50),
               ClockTool(),
+              SizedBox(height: 8.0),
+              BatteryMonitor(),
               SizedBox(height: 50),
-              SizedBox(
-                height: 180,
-                child: ClimateControl(),
-              ),
-              SizedBox(
-                height: 300,
-                child: IncomingRequests(),
-              ),
+              SizedBox(height: 300.0, child: ClimateControl()),
+              SizedBox(height: 200.0, child: IncomingRequests()),
             ],
           ),
         ));

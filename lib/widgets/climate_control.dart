@@ -13,32 +13,11 @@ class ClimateControl extends StatefulWidget {
 }
 
 class _ClimateControlState extends State<ClimateControl> {
-  final ButtonStyle airSpeedBtnStyle = OutlinedButton.styleFrom(
-    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-    foregroundColor: Colors.black87,
-    backgroundColor: Colors.white,
-    textStyle: const TextStyle(fontSize: 30),
-    shape: RoundedRectangleBorder(
-      side: BorderSide(width: 7.0, color: sliderGradientEnd[4]),
-      borderRadius: const BorderRadius.all(
-        Radius.circular(10),
-      ),
-    ),
-  );
-
   var _airStatus = AirStatus.cold.toString();
-  var _fanSpeed = 1;
+  var _fanSpeed = FanStatus.slow.toString();
 
-  void _sendSpeedRequest() async {
-    _fanSpeed = _fanSpeed == 1
-        ? 2
-        : _fanSpeed == 2
-            ? 3
-            : _fanSpeed == 3
-                ? 4
-                : _fanSpeed == 4
-                    ? 1
-                    : 1;
+  void _sendSpeedRequest(String newFan) async {
+    _fanSpeed = newFan;
 
     FirebaseFirestore.instance.collection('ride').doc('climate_status').update({
       'speed': _fanSpeed,
@@ -73,61 +52,120 @@ class _ClimateControlState extends State<ClimateControl> {
         _fanSpeed = airStatusList[0].data()['speed'];
 
         return Center(
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            CupertinoSegmentedControl(
-              selectedColor: Colors.blue.shade800,
-              unselectedColor: Colors.white,
-              groupValue: _airStatus,
-              borderColor: Colors.white,
-              onValueChanged: (String value) {
-                setState(() {
-                  _airStatus = value;
-                  _sendTempRequest(value);
-                });
-              },
-              children: {
-                AirStatus.cold.toString(): Container(
-                  padding: const EdgeInsets.all(16),
-                  child: const Text(
-                    'A/C',
-                    style: TextStyle(fontSize: 30),
-                  ),
+          child: Column(children: [
+            //Fan Mode Widgets
+            Column(
+              children: [
+                CupertinoSegmentedControl(
+                  selectedColor: Colors.blue.shade800,
+                  unselectedColor: Colors.white,
+                  groupValue: _airStatus,
+                  borderColor: Colors.white,
+                  onValueChanged: (String value) {
+                    setState(() {
+                      _airStatus = value;
+                      _sendTempRequest(value);
+                    });
+                  },
+                  children: {
+                    AirStatus.cold.toString(): Container(
+                      padding: const EdgeInsets.all(16),
+                      child: const Text(
+                        'A/C',
+                        style: TextStyle(fontSize: 30),
+                      ),
+                    ),
+                    AirStatus.heat.toString(): Container(
+                        padding: const EdgeInsets.all(16),
+                        child: const Text(
+                          'Heat',
+                          style: TextStyle(fontSize: 30),
+                        )),
+                    AirStatus.off.toString(): Container(
+                        padding: const EdgeInsets.all(16),
+                        child: const Text(
+                          'Off',
+                          style: TextStyle(fontSize: 30),
+                        )),
+                  },
                 ),
-                AirStatus.heat.toString(): Container(
-                    padding: const EdgeInsets.all(16),
-                    child: const Text(
-                      'Heat',
-                      style: TextStyle(fontSize: 30),
-                    )),
-                AirStatus.off.toString(): Container(
-                    padding: const EdgeInsets.all(16),
-                    child: const Text(
-                      'Off',
-                      style: TextStyle(fontSize: 30),
-                    )),
-              },
+                const SizedBox(height: 8.0),
+                const Text(
+                  'Mode',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontStyle: FontStyle.normal,
+                      color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
             const SizedBox(height: 24),
+
+            // Fan Speed Widgets
             Visibility(
               visible: (_airStatus != AirStatus.off.toString()),
               maintainSize: true,
               maintainAnimation: true,
               maintainState: true,
-              child: SizedBox(
-                width: 300.0,
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                    (_airStatus != AirStatus.off.toString())
-                        ? _sendSpeedRequest()
-                        : null;
-                  },
-                  style: airSpeedBtnStyle,
-                  label: Text(
-                      'Fan speed: ${(_fanSpeed / 4 * 100).toStringAsFixed(0)}%'),
-                  icon: const Icon(Icons.wind_power),
-                ),
+              child: Column(
+                children: [
+                  CupertinoSegmentedControl(
+                    selectedColor: Colors.blue.shade800,
+                    unselectedColor: Colors.white,
+                    groupValue: _fanSpeed,
+                    borderColor: Colors.white,
+                    onValueChanged: (String value) {
+                      setState(() {
+                        (_airStatus != AirStatus.off.toString())
+                            ? _sendSpeedRequest(value)
+                            : null;
+                      });
+                    },
+                    children: {
+                      FanStatus.slow.toString(): Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 16.0, horizontal: 4.0),
+                        child: const Text(
+                          'slow',
+                          style: TextStyle(fontSize: 30),
+                        ),
+                      ),
+                      FanStatus.medium.toString(): Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 16.0, horizontal: 4.0),
+                          child: const Text(
+                            'medium',
+                            style: TextStyle(fontSize: 30),
+                          )),
+                      FanStatus.high.toString(): Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 16.0, horizontal: 4.0),
+                          child: const Text(
+                            'high',
+                            style: TextStyle(fontSize: 30),
+                          )),
+                      FanStatus.max.toString(): Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 16.0, horizontal: .0),
+                          child: const Text(
+                            'max',
+                            style: TextStyle(fontSize: 30),
+                          )),
+                    },
+                  ),
+                  const SizedBox(height: 8.0),
+                  const Text(
+                    'Fan Speed',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontStyle: FontStyle.normal,
+                        color: Colors.white),
+                    textAlign: TextAlign.start,
+                  ),
+                ],
               ),
-            )
+            ),
           ]),
         );
       },

@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:kiosk/data/data.dart';
 import 'package:kiosk/widgets/climate_control.dart';
-import 'package:url_launcher/url_launcher_string.dart';
+import 'package:kiosk/widgets/entertainment.dart';
 import 'package:battery_plus/battery_plus.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:kiosk/widgets/firestore_message.dart';
 
 class Carousel extends StatefulWidget {
   const Carousel({super.key});
@@ -24,18 +25,6 @@ class _CarouselState extends State<Carousel> {
     foregroundColor: Colors.black,
     backgroundColor: Colors.blue.shade100,
     textStyle: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(
-        Radius.circular(10),
-      ),
-    ),
-  );
-
-  final ButtonStyle hyperlinkStyles = ElevatedButton.styleFrom(
-    padding: const EdgeInsets.all(16.0),
-    foregroundColor: Colors.black,
-    backgroundColor: Colors.white,
-    textStyle: const TextStyle(fontSize: 36),
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(
         Radius.circular(10),
@@ -82,7 +71,7 @@ class _CarouselState extends State<Carousel> {
             },
           ),
           carouselController: slideController,
-          items: sliderNotes.map((slideActive) {
+          items: sliderNotes.map((currentSliderNote) {
             return Builder(
               builder: (BuildContext context) {
                 return Container(
@@ -110,7 +99,7 @@ class _CarouselState extends State<Carousel> {
                               children: [
                                 Text(
                                   sliderHeaders[
-                                      sliderNotes.indexOf(slideActive)],
+                                      sliderNotes.indexOf(currentSliderNote)],
                                   style: TextStyle(
                                       fontSize: 60,
                                       fontStyle: FontStyle.italic,
@@ -119,7 +108,7 @@ class _CarouselState extends State<Carousel> {
                                 ),
 
                                 // slider header icons
-                                (sliderNotes.indexOf(slideActive) == 0)
+                                (sliderNotes.indexOf(currentSliderNote) == 0)
                                     ? Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 16.0),
@@ -130,7 +119,7 @@ class _CarouselState extends State<Carousel> {
                                         ),
                                       )
                                     : const SizedBox(),
-                                (sliderNotes.indexOf(slideActive) == 1)
+                                (sliderNotes.indexOf(currentSliderNote) == 1)
                                     ? Padding(
                                         padding: const EdgeInsets.fromLTRB(
                                             16.0, 8.0, 0.0, 0.0),
@@ -141,7 +130,7 @@ class _CarouselState extends State<Carousel> {
                                         ),
                                       )
                                     : const SizedBox(),
-                                (sliderNotes.indexOf(slideActive) == 2)
+                                (sliderNotes.indexOf(currentSliderNote) == 2)
                                     ? Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 16.0),
@@ -152,7 +141,7 @@ class _CarouselState extends State<Carousel> {
                                         ),
                                       )
                                     : const SizedBox(),
-                                (sliderNotes.indexOf(slideActive) == 3)
+                                (sliderNotes.indexOf(currentSliderNote) == 3)
                                     ? Padding(
                                         padding: const EdgeInsets.fromLTRB(
                                             16.0, 8.0, 0.0, 0.0),
@@ -163,7 +152,7 @@ class _CarouselState extends State<Carousel> {
                                         ),
                                       )
                                     : const SizedBox(),
-                                (sliderNotes.indexOf(slideActive) == 4)
+                                (sliderNotes.indexOf(currentSliderNote) == 4)
                                     ? Padding(
                                         padding: const EdgeInsets.fromLTRB(
                                             16.0, 8.0, 0.0, 0.0),
@@ -181,8 +170,9 @@ class _CarouselState extends State<Carousel> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
+                                // slider sub headers
                                 Text(
-                                  slideActive,
+                                  currentSliderNote,
                                   style: TextStyle(
                                       fontSize: 48,
                                       color: Theme.of(context)
@@ -190,42 +180,13 @@ class _CarouselState extends State<Carousel> {
                                           .onSurface),
                                   textAlign: TextAlign.center,
                                 ),
-                                if (sliderNotes.indexOf(slideActive) == 2)
-                                  const Column(
-                                    children: [
-                                      SizedBox(
-                                          height: 200, child: ClimateControl())
-                                    ],
-                                  ),
-                                if (sliderNotes.indexOf(slideActive) == 3)
-                                  Center(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        ElevatedButton(
-                                          style: hyperlinkStyles,
-                                          child: const Text('D.I.A. Events'),
-                                          onPressed: () => launchUrlString(
-                                              'https://dia.org/events'),
-                                        ),
-                                        const SizedBox(width: 24),
-                                        ElevatedButton(
-                                          style: hyperlinkStyles,
-                                          child: const Text('Metro Times'),
-                                          onPressed: () => launchUrlString(
-                                              'https://www.metrotimes.com/'),
-                                        ),
-                                        const SizedBox(width: 24),
-                                        ElevatedButton(
-                                          style: hyperlinkStyles,
-                                          child: const Text('YouTube'),
-                                          onPressed: () => launchUrlString(
-                                              'https://www.youtube.com/'),
-                                        )
-                                      ],
-                                    ),
-                                  ),
+
+                                if (sliderNotes.indexOf(currentSliderNote) == 2)
+                                  const ClimateControl()
+                                else if (sliderNotes
+                                        .indexOf(currentSliderNote) ==
+                                    3)
+                                  const Entertainment()
                               ],
                             ),
                           ),

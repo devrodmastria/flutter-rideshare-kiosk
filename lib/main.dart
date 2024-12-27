@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
               if (snapshot.data!.email!.contains('driver')) {
                 return const DriverDashboard();
               } else {
-                return const HomeScreen();
+                return const RiderHomeScreen();
               }
             }
 

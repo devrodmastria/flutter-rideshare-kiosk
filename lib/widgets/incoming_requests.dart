@@ -22,64 +22,15 @@ class _IncomingRequests extends State<IncomingRequests> {
   var _currentTimeFan = 0;
 
   String _tempStatus = AirStatus.cold.toString();
-  var _fanSpeed = 1;
-
-  var _kioskBattery = 0;
+  var _fanSpeed = FanStatus.slow.toString();
 
   static const _fontSize = 24.0;
+  static const requestBoxWidth = 360.0;
 
-  final ButtonStyle airBtnStyleHeat = OutlinedButton.styleFrom(
+  final ButtonStyle Request_FlagStyle = OutlinedButton.styleFrom(
     padding: const EdgeInsets.all(16),
     foregroundColor: Colors.white,
     backgroundColor: Colors.red.shade400,
-    textStyle: const TextStyle(fontSize: _fontSize),
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(
-        Radius.circular(10),
-      ),
-    ),
-  );
-
-  final ButtonStyle airBtnStyleCold = OutlinedButton.styleFrom(
-    padding: const EdgeInsets.all(16),
-    foregroundColor: Colors.white,
-    backgroundColor: Colors.blue.shade400,
-    textStyle: const TextStyle(fontSize: _fontSize),
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(
-        Radius.circular(10),
-      ),
-    ),
-  );
-
-  final ButtonStyle airBtnStyleOff = OutlinedButton.styleFrom(
-    padding: const EdgeInsets.all(16),
-    foregroundColor: Colors.black87,
-    backgroundColor: Colors.grey.shade400,
-    textStyle: const TextStyle(fontSize: _fontSize),
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(
-        Radius.circular(10),
-      ),
-    ),
-  );
-
-  final ButtonStyle speedBtnStyleLow = OutlinedButton.styleFrom(
-    padding: const EdgeInsets.all(16),
-    foregroundColor: Colors.white,
-    backgroundColor: Colors.green.shade400,
-    textStyle: const TextStyle(fontSize: _fontSize),
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(
-        Radius.circular(10),
-      ),
-    ),
-  );
-
-  final ButtonStyle speedBtnStyleHigh = OutlinedButton.styleFrom(
-    padding: const EdgeInsets.all(16),
-    foregroundColor: Colors.white,
-    backgroundColor: Colors.green.shade900,
     textStyle: const TextStyle(fontSize: _fontSize),
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(
@@ -130,34 +81,19 @@ class _IncomingRequests extends State<IncomingRequests> {
         _requestTimeFan = airStatusList[0].data()['fanCreatedAt'];
         _requestVisibleFan = _currentTimeFan < _requestTimeFan;
 
-        _kioskBattery = airStatusList[0].data()['battery'];
-
         return Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Kiosk ${_kioskBattery.toString()}%',
-                      style:
-                          const TextStyle(fontSize: 24, color: Colors.white)),
-                  const Icon(
-                    size: 25.0,
-                    Icons.battery_charging_full,
-                    color: Colors.white,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 10),
               Visibility(
                   visible: _requestVisibleTemp,
                   maintainState: true,
                   maintainAnimation: true,
                   maintainSize: true,
                   child: SizedBox(
-                    width: 300.0,
+                    width: requestBoxWidth,
                     child: ElevatedButton.icon(
                       onPressed: () {
                         setState(() {
@@ -167,11 +103,7 @@ class _IncomingRequests extends State<IncomingRequests> {
                           }
                         });
                       },
-                      style: _tempStatus == AirStatus.cold.toString()
-                          ? airBtnStyleCold
-                          : _tempStatus == AirStatus.heat.toString()
-                              ? airBtnStyleHeat
-                              : airBtnStyleOff,
+                      style: Request_FlagStyle,
                       label: Text(_tempStatus == AirStatus.cold.toString()
                           ? 'A/C Requested'
                           : _tempStatus == AirStatus.heat.toString()
@@ -180,14 +112,14 @@ class _IncomingRequests extends State<IncomingRequests> {
                       icon: const Icon(Icons.sunny_snowing),
                     ),
                   )),
-              const SizedBox(height: 30),
+              const SizedBox(height: 10),
               Visibility(
                   visible: _requestVisibleFan,
                   maintainState: true,
                   maintainAnimation: true,
                   maintainSize: true,
                   child: SizedBox(
-                    width: 300.0,
+                    width: requestBoxWidth,
                     child: ElevatedButton.icon(
                       onPressed: () {
                         setState(() {
@@ -198,13 +130,7 @@ class _IncomingRequests extends State<IncomingRequests> {
                       style: OutlinedButton.styleFrom(
                         padding: const EdgeInsets.all(16),
                         foregroundColor: Colors.white,
-                        backgroundColor: _fanSpeed == 1
-                            ? Colors.orange.shade600
-                            : _fanSpeed == 2
-                                ? Colors.blue.shade600
-                                : _fanSpeed == 3
-                                    ? Colors.pink.shade600
-                                    : Colors.purple.shade600,
+                        backgroundColor: Colors.blue.shade600,
                         textStyle: const TextStyle(fontSize: _fontSize),
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(
@@ -212,7 +138,7 @@ class _IncomingRequests extends State<IncomingRequests> {
                           ),
                         ),
                       ),
-                      label: Text('Speed $_fanSpeed requested'),
+                      label: Text(_fanSpeed),
                       icon: const Icon(Icons.wind_power),
                     ),
                   )),
