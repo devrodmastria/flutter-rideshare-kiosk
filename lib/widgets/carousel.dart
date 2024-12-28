@@ -58,7 +58,7 @@ class _CarouselState extends State<Carousel> {
           options: CarouselOptions(
             height: 625.0,
             autoPlay: true,
-            autoPlayInterval: const Duration(seconds: 10),
+            autoPlayInterval: const Duration(seconds: 15),
             autoPlayAnimationDuration: const Duration(milliseconds: 500),
             autoPlayCurve: Curves.fastOutSlowIn,
             enlargeCenterPage: true,
@@ -132,17 +132,6 @@ class _CarouselState extends State<Carousel> {
                                     : const SizedBox(),
                                 (sliderNotes.indexOf(currentSliderNote) == 2)
                                     ? Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16.0),
-                                        child: Icon(
-                                          size: 50.0,
-                                          Icons.wind_power,
-                                          color: Colors.grey.shade800,
-                                        ),
-                                      )
-                                    : const SizedBox(),
-                                (sliderNotes.indexOf(currentSliderNote) == 3)
-                                    ? Padding(
                                         padding: const EdgeInsets.fromLTRB(
                                             16.0, 8.0, 0.0, 0.0),
                                         child: Icon(
@@ -152,6 +141,18 @@ class _CarouselState extends State<Carousel> {
                                         ),
                                       )
                                     : const SizedBox(),
+                                (sliderNotes.indexOf(currentSliderNote) == 3)
+                                    ? Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16.0),
+                                        child: Icon(
+                                          size: 50.0,
+                                          Icons.wind_power,
+                                          color: Colors.grey.shade800,
+                                        ),
+                                      )
+                                    : const SizedBox(),
+
                                 (sliderNotes.indexOf(currentSliderNote) == 4)
                                     ? Padding(
                                         padding: const EdgeInsets.fromLTRB(
@@ -181,12 +182,12 @@ class _CarouselState extends State<Carousel> {
                                   textAlign: TextAlign.center,
                                 ),
 
+                                if (sliderNotes.indexOf(currentSliderNote) == 1)
+                                  const FirestoreMsg(),
                                 if (sliderNotes.indexOf(currentSliderNote) == 2)
-                                  const ClimateControl()
-                                else if (sliderNotes
-                                        .indexOf(currentSliderNote) ==
-                                    3)
-                                  const Entertainment()
+                                  const Entertainment(),
+                                if (sliderNotes.indexOf(currentSliderNote) == 3)
+                                  const ClimateControl(),
                               ],
                             ),
                           ),

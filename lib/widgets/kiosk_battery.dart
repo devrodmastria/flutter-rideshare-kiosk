@@ -37,7 +37,7 @@ class _BatteryMonitor extends State<BatteryMonitor> {
                   style: const TextStyle(fontSize: 24, color: Colors.white)),
               const Icon(
                 size: 25.0,
-                Icons.battery_charging_full,
+                Icons.battery_5_bar,
                 color: Colors.white,
               ),
             ],

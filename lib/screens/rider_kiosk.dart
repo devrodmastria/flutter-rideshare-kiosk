@@ -3,12 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:kiosk/widgets/carousel.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
-class RiderHomeScreen extends StatefulWidget {
-  const RiderHomeScreen({super.key});
+class RiderKiosk extends StatefulWidget {
+  const RiderKiosk({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return _RiderHomeScreenState();
+    return _RiderKioskState();
   }
 }
 
@@ -18,7 +18,7 @@ void enableFullScreen() {
       [DeviceOrientation.landscapeRight, DeviceOrientation.landscapeLeft]);
 }
 
-class _RiderHomeScreenState extends State<RiderHomeScreen> {
+class _RiderKioskState extends State<RiderKiosk> {
   @override
   Widget build(BuildContext context) {
     setState(() {
@@ -26,16 +26,11 @@ class _RiderHomeScreenState extends State<RiderHomeScreen> {
       enableFullScreen();
     });
 
-    return Scaffold(
-      appBar: AppBar(),
-      body: const Column(
+    return const Scaffold(
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Carousel(),
-          ),
+          Carousel(),
         ],
       ),
     );

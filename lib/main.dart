@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kiosk/screens/rider_home.dart';
+import 'package:kiosk/screens/rider_kiosk.dart';
 import 'package:kiosk/screens/login.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
               if (snapshot.data!.email!.contains('driver')) {
                 return const DriverDashboard();
               } else {
-                return const RiderHomeScreen();
+                return const RiderKiosk();
               }
             }
 

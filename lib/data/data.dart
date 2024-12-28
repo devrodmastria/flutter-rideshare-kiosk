@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 const List<String> sliderHeaders = [
-  'Hello!',
-  'Music',
-  'Climate Control',
-  'Entertainment',
+  'Hello!', //0
+  'Music', //1
+  'Entertainment', //2
+  'Climate Control', //3
   'Water'
 ];
 
 const List<String> sliderNotes = [
   'Welcome to your Rideshare Kiosk\n\nSwipe to explore!',
-  'Play music with the\n audio adapter located\n near the tablet',
-  'Cabin settings\n',
+  'Connect your phone',
   'Select an app to enjoy!\n',
+  'Cabin settings\n',
   'Water available upon request\n\nTrash bag located under power outlet',
 ];
 
