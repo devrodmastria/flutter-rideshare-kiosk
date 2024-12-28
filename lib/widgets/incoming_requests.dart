@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:kiosk/data/data.dart';
 
 class IncomingRequests extends StatefulWidget {
   const IncomingRequests({super.key});
@@ -21,13 +20,10 @@ class _IncomingRequests extends State<IncomingRequests> {
   var _currentTimeTemp = 0;
   var _currentTimeFan = 0;
 
-  String _tempStatus = AirStatus.cold.toString();
-  var _fanSpeed = FanStatus.slow.toString();
-
   static const _fontSize = 24.0;
   static const requestBoxWidth = 360.0;
 
-  final ButtonStyle Request_FlagStyle = OutlinedButton.styleFrom(
+  final ButtonStyle _requestFlagStyle = OutlinedButton.styleFrom(
     padding: const EdgeInsets.all(16),
     foregroundColor: Colors.white,
     backgroundColor: Colors.red.shade400,
@@ -72,8 +68,7 @@ class _IncomingRequests extends State<IncomingRequests> {
         }
 
         final airStatusList = snapshot.data!.docs;
-        _tempStatus = airStatusList[0].data()['air'];
-        _fanSpeed = airStatusList[0].data()['speed'];
+        // _fanSpeed = airStatusList[0].data()['speed'];
 
         _requestTimeTemp = airStatusList[0].data()['tempCreatedAt'];
         _requestVisibleTemp = _currentTimeTemp < _requestTimeTemp;
@@ -103,12 +98,8 @@ class _IncomingRequests extends State<IncomingRequests> {
                           }
                         });
                       },
-                      style: Request_FlagStyle,
-                      label: Text(_tempStatus == AirStatus.cold.toString()
-                          ? 'A/C Requested'
-                          : _tempStatus == AirStatus.heat.toString()
-                              ? 'Heat Requested'
-                              : 'Off Requested'),
+                      style: _requestFlagStyle,
+                      label: const Text('  New Temp'),
                       icon: const Icon(Icons.sunny_snowing),
                     ),
                   )),
@@ -138,7 +129,7 @@ class _IncomingRequests extends State<IncomingRequests> {
                           ),
                         ),
                       ),
-                      label: Text(_fanSpeed),
+                      label: const Text('  New Speed'),
                       icon: const Icon(Icons.wind_power),
                     ),
                   )),
