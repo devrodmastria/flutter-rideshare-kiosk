@@ -26,15 +26,13 @@ class _DriverDashboardState extends State<DriverDashboard> {
         body: const Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 50),
               ClockTool(),
-              SizedBox(height: 8.0),
+              SizedBox(height: 24.0),
               BatteryMonitor(),
-              SizedBox(height: 50),
-              SizedBox(height: 300.0, child: ClimateControl()),
-              SizedBox(height: 200.0, child: IncomingRequests()),
+              SizedBox(height: 24.0),
+              SizedBox(height: 260.0, child: ClimateControl()),
+              // SizedBox(height: 150.0, child: IncomingRequests()),
             ],
           ),
         ));

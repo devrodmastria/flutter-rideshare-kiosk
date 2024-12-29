@@ -11,18 +11,41 @@ class ClockTool extends StatefulWidget {
 }
 
 class _ClockToolState extends State<ClockTool> {
+  var clockColor = Colors.yellow;
+
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: DigitalClock(
-        decoration: BoxDecoration(
-            color: Colors.grey.shade400,
-            shape: BoxShape.rectangle,
-            borderRadius: const BorderRadius.all(Radius.circular(15))),
-        isLive: true,
-        showSeconds: false,
-        textScaleFactor: 3.3,
-        datetime: DateTime.now(),
+      child: Column(
+        children: [
+          AnalogClock(
+            width: 250.0,
+            height: 250.0,
+            isLive: false,
+            hourHandColor: clockColor,
+            minuteHandColor: clockColor,
+            showSecondHand: false,
+            numberColor: clockColor,
+            showNumbers: true,
+            showAllNumbers: true,
+            textScaleFactor: 2.0,
+            showTicks: true,
+            tickColor: clockColor,
+            showDigitalClock: false,
+            digitalClockColor: clockColor,
+            datetime: DateTime.now(),
+          ),
+          // DigitalClock(
+          //   decoration: BoxDecoration(
+          //       color: Colors.grey.shade400,
+          //       shape: BoxShape.rectangle,
+          //       borderRadius: const BorderRadius.all(Radius.circular(15))),
+          //   isLive: true,
+          //   showSeconds: false,
+          //   textScaleFactor: 3.3,
+          //   datetime: DateTime.now(),
+          // ),
+        ],
       ),
     );
   }
