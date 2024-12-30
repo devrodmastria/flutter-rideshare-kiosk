@@ -11,7 +11,7 @@ class ClockTool extends StatefulWidget {
 }
 
 class _ClockToolState extends State<ClockTool> {
-  var clockColor = Colors.yellow;
+  var clockColor = Colors.white;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class _ClockToolState extends State<ClockTool> {
           AnalogClock(
             width: 250.0,
             height: 250.0,
-            isLive: false,
+            isLive: true,
             hourHandColor: clockColor,
             minuteHandColor: clockColor,
             showSecondHand: false,
